@@ -28,8 +28,11 @@ jobs:
       - name: Get Go path
         id: go-path
         run: |
-          echo "GOMODCACHE=$(go env GOMODCACHE)" >> "$GITHUB_OUTPUT"
-          echo "GOBIN=$(go env GOBIN)" >> "$GITHUB_OUTPUT"
+          { 
+            echo "GOMODCACHE=$(go env GOMODCACHE)";
+            echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_OUTPUT";
+            echo "GOBIN=$(go env GOBIN)" >> "$GITHUB_OUTPUT";
+          } >> "$GITHUB_OUTPUT"
 
       - name: Cache Go modules
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
@@ -37,6 +40,7 @@ jobs:
         with:
           path: |
             ${{ steps.go-path.outputs.GOMODCACHE }}
+            ${{ steps.go-path.outputs.GOCACHE }}
             ${{ steps.go-path.outputs.GOBIN }}
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
 
