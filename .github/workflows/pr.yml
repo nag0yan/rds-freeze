@@ -4,9 +4,6 @@ on:
   pull_request:
     branches:
       - main
-  push:
-    branches:
-      - main
 
 concurrency:
   group: ci-pr-${{ github.head_ref }}
@@ -16,7 +13,8 @@ jobs:
   checks:
     timeout-minutes: 5
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
