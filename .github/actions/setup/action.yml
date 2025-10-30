@@ -14,6 +14,7 @@ runs:
     
     - name: Get Go path
       id: go-path
+      shell: bash
       run: |
         { 
           echo "GOMODCACHE=$(go env GOMODCACHE)";
@@ -32,6 +33,7 @@ runs:
         key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
 
     - name: Install Go dependencies and tools
+      shell: bash
       run: |
         go mod download
         go install tool
