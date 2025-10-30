@@ -7,10 +7,6 @@ on:
     tags:
       - 'v*.*.*'
 
-concurrency:
-  group: release-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   release:
     timeout-minutes: 10
